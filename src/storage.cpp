@@ -20,8 +20,8 @@ Storage::Storage(const std::string &filename) : fd(-1)
     // Build full file path
     this->filename = storage_dir + "/" + filename;
 
-    // Open or create the file
-    fd = open(this->filename.c_str(), O_RDWR | O_CREAT, 0644);
+    // Open or create the file with O_APPEND to always write at end
+    fd = open(this->filename.c_str(), O_RDWR | O_CREAT | O_APPEND, 0644);
     if (fd < 0)
     {
         throw std::runtime_error("Failed to open storage file '" +
